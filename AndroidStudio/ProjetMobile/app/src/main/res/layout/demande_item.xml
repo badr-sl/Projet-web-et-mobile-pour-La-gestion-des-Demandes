@@ -1,90 +1,105 @@
 <!-- demande_item.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <!-- Conteneur pour les informations de demande -->
-    <LinearLayout
-        android:id="@+id/demandInfoContainer"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="16dp">
 
         <!-- Titre de la demande -->
         <TextView
             android:id="@+id/titleLabelTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Titre :" />
+            android:text="Titre :"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/titleTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Le titre ici" />
-
-        <!-- Séparateur -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:text="Le titre ici"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            android:layout_below="@id/titleLabelTextView"
+            android:layout_marginTop="4dp"/>
 
         <!-- Sujet de la demande -->
         <TextView
             android:id="@+id/sujetLabelTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sujet :" />
+            android:text="Sujet :"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_below="@id/titleTextView"
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/sujetTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sujet de la demande" />
-
-        <!-- Séparateur -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:text="Sujet de la demande"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            android:layout_below="@id/sujetLabelTextView"
+            android:layout_marginTop="4dp"/>
 
         <!-- Date de la demande -->
         <TextView
             android:id="@+id/dateLabelTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date :" />
+            android:text="Date :"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_below="@id/sujetTextView"
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/dateTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date de la demande" />
-
-        <!-- Séparateur -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:text="Date de la demande"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            android:layout_below="@id/dateLabelTextView"
+            android:layout_marginTop="4dp"/>
 
         <!-- État de la demande -->
         <TextView
             android:id="@+id/etatLabelTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="État :" />
+            android:text="État :"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_below="@id/dateTextView"
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/etatTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="État de la demande" />
+            android:text="État de la demande"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            android:layout_below="@id/etatLabelTextView"
+            android:layout_marginTop="4dp"/>
 
-        <!-- Ajout d'une vue de séparation -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/black" />
-    </LinearLayout>
+    </RelativeLayout>
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

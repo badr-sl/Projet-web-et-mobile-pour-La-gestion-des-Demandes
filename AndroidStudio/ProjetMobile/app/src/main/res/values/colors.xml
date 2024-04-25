@@ -5,4 +5,7 @@
     <color name="red">#C11515</color>
     <color name="primaryDarck">#3262C4</color>
     <color name="vert">#00FF00</color>
+    <color name="light_gray">#E0E0E0</color>
+    <color name="dark_gray">#A9A9A9</color>
+
 </resources>
