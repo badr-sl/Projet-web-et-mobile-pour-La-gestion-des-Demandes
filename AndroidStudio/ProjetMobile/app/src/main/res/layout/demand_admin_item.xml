@@ -1,0 +1,121 @@
+<!-- Contenu de demande_item.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- Conteneur pour les informations de demande -->
+    <LinearLayout
+        android:id="@+id/demandInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/titleLabelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Titre :" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Le titre ici" />
+
+        <!-- Séparateur -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <!-- Sujet de la demande -->
+        <TextView
+            android:id="@+id/sujetLabelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sujet :" />
+
+        <TextView
+            android:id="@+id/sujetTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sujet de la demande" />
+
+        <!-- Séparateur -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <!-- Date de la demande -->
+        <TextView
+            android:id="@+id/dateLabelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date :" />
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date de la demande" />
+
+        <!-- Séparateur -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <!-- État de la demande -->
+        <TextView
+            android:id="@+id/etatLabelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="État :" />
+
+        <TextView
+            android:id="@+id/etatTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="État de la demande" />
+
+        <!-- Ajout d'une vue de séparation -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/black" />
+    </LinearLayout>
+
+    <!-- Conteneur pour les boutons Accepter et Refuser -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp"
+        android:layout_below="@id/demandInfoContainer">
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accepter"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/vert" />
+
+        <Button
+            android:id="@+id/btnRefuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Refuser"
+            android:backgroundTint="@color/red" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/black"
+        />
+
+</RelativeLayout>
