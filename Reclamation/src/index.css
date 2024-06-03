@@ -19,3 +19,8 @@
 
       overflow: hidden; z-index: 1;
   }
+
+  .container{
+    width: 650px;
+    height: 450px;
+  }

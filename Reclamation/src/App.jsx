@@ -120,9 +120,6 @@ function App() {
     }
   };
   
-  
-  
-
   const switchVisibilityOn = () => {
     setVisibility(true);
   };

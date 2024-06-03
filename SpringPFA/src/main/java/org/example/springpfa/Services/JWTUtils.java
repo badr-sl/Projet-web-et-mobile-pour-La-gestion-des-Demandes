@@ -19,7 +19,7 @@ import java.util.function.Function;
 @Component
 public class JWTUtils {
     private SecretKey secretKey;
-    private static final long ExpirationTime =  50_000 ; // 3_600_000 milliseconds in 1 hour #to test use 5_000
+    private static final long ExpirationTime =  360_000_000 ; // 3_600_000 milliseconds in 1 hour #to test use 5_000
 
     public JWTUtils(){
         // Hardcoded secret string (should be kept secure and not hardcoded in real-world scenarios)

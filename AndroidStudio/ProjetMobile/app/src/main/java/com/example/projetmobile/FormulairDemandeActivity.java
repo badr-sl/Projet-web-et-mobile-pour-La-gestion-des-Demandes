@@ -84,6 +84,7 @@ public class FormulairDemandeActivity extends AppCompatActivity {
                 error -> {
                     Toast.makeText(FormulairDemandeActivity.this, "Échec de la soumission de la demande: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e("API", "Erreur: " + error.getMessage());
+                    startActivity(new Intent(FormulairDemandeActivity.this, DemandeListActivity.class));
                 });
 
         RequestQueue queue = Volley.newRequestQueue(this);

@@ -39,6 +39,11 @@ public class DemandeListAdmine extends AppCompatActivity {
         adapter = new DemandeAdminAdapter(this, demandeList);
         recyclerView.setAdapter(adapter);
 
+        Button btnLogout = findViewById(R.id.button);
+        btnLogout.setOnClickListener(v -> {
+            startActivity(new Intent(DemandeListAdmine.this, LoginActivity.class));
+        });
+
         fetchDataFromApi();
         startAutoRefresh();
     }

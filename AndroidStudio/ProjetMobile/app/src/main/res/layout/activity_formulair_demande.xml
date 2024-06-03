@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/titre"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,9 +57,9 @@
             android:id="@+id/sujetEditText"
             android:layout_width="match_parent"
             android:layout_height="98dp"
+            android:backgroundTint="@color/black"
             android:hint="@string/sujet"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/black"/>
+            android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

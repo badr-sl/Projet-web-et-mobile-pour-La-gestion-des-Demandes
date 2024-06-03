@@ -41,9 +41,14 @@ public class DemandeListActivity extends AppCompatActivity {
 
         fetchDataFromApi();
 
-        Button btnEnvoyerDemande = findViewById(R.id.addDemandButton);
-        btnEnvoyerDemande.setOnClickListener(v -> {
+        Button btnAjoutDemande = findViewById(R.id.addDemandButton);
+        btnAjoutDemande.setOnClickListener(v -> {
             startActivity(new Intent(DemandeListActivity.this, FormulairDemandeActivity.class));
+        });
+
+        Button btnLogout = findViewById(R.id.logoutButton);
+        btnLogout.setOnClickListener(v -> {
+            startActivity(new Intent(DemandeListActivity.this, LoginActivity.class));
         });
 
         startAutoRefresh();

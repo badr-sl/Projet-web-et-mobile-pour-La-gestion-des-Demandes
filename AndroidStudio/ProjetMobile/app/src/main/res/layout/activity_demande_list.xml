@@ -1,29 +1,40 @@
-<!-- activity_demande_list.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Bouton "Ajouter demande" -->
+
+
     <Button
-        android:id="@+id/addDemandButton"
+        android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/btn_bg"
+        android:text="Déconnexion" />
+
+    <Button
+        android:id="@+id/addDemandButton"
+        android:layout_width="196dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logoutButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-44dp"
+        android:layout_marginEnd="191dp"
+        android:layout_marginRight="191dp"
         android:background="@drawable/btn_bg"
         android:text="Ajouter demande" />
 
-    <!-- RecyclerView pour afficher la liste des demandes -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="394dp"
-        android:layout_height="653dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/addDemandButton"
-        android:layout_alignEnd="@+id/addDemandButton"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="-8dp" />
+        android:layout_marginTop="8dp" />
 
 </RelativeLayout>
