@@ -3,6 +3,7 @@ package org.example.springpfa;
 import org.example.springpfa.Repository.DemandeRepository;
 import org.example.springpfa.Repository.UserRepository;
 import org.example.springpfa.Repository.UserRoleRepository;
+import org.example.springpfa.Services.MailService;
 import org.example.springpfa.entities.Demande;
 import org.example.springpfa.entities.User;
 import org.example.springpfa.entities.UserRole;
@@ -23,6 +24,8 @@ public class SpringPfaApplication implements CommandLineRunner {
     UserRepository userRepository ;
     @Autowired
     UserRoleRepository userRoleRepository;
+    @Autowired
+    MailService mailService;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringPfaApplication.class, args);

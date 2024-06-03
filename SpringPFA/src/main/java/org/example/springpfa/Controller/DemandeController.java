@@ -1,22 +1,24 @@
 package org.example.springpfa.Controller;
+import org.example.springpfa.DaoMotif;
 import org.example.springpfa.Repository.DemandeRepository;
 import org.example.springpfa.Repository.UserRepository;
 import org.example.springpfa.Services.JWTUtils;
+import org.example.springpfa.Services.MailService;
 import org.example.springpfa.Services.UserService;
 import org.example.springpfa.entities.Demande;
 import org.example.springpfa.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class DemandeController {
 
     @Autowired
     DemandeRepository demandeRepository;
+    @Autowired
+    MailService mailService;
     @Autowired
     JWTUtils jwtUtils;
     @Autowired
@@ -124,5 +126,43 @@ public class DemandeController {
         System.out.println(user);
         return 1;
     }
+
+    @PostMapping("/reclamation/newSolve")
+    public Map<String,Object> NewSolveReclamation(@RequestParam String token ,@RequestParam Long id , @RequestBody DaoMotif motif ){
+        Map<String,Object> response = new HashMap<>();
+        String userName = jwtUtils.extractUserName(token);
+        User user = userRepository.findByUsername(userName);
+        Demande demande = demandeRepository.findByIdDemande(id);
+        demande.setEtat("Solved");
+        demandeRepository.save(demande);
+        System.out.println("sending  mail Ongoing ");
+        String mailReceiver = userRepository.findByUsername(jwtUtils.extractUserName(token)).getEmail();//get admin's mail
+        String  MailReceiver = demande.getUser().getEmail();//get the reclamation owner's mail
+        mailService.sendEmail(motif.getMotif(),MailReceiver);
+        response.put("response",200);
+        response.put("Receiver" , mailReceiver);
+        response.put("motif",motif.getMotif());
+        return response;
+    }
+
+    @PostMapping("/reclamation/newReject")
+    public Map<String,Object> NewRejectReclamation(@RequestParam String token , @RequestParam Long id , @RequestBody DaoMotif motif){
+        Map<String,Object> respose = new HashMap<>();
+        String userName = jwtUtils.extractUserName(token);
+        User user = userRepository.findByUsername(userName);
+        Demande demande = demandeRepository.findByIdDemande(id);
+        demande.setEtat("Rejected");
+        demandeRepository.save(demande);
+        System.out.println("sending  mail Ongoing ");
+        String mailReceiver = userRepository.findByUsername(jwtUtils.extractUserName(token)).getEmail();//get admin's mail
+        String  MailReceiver = demande.getUser().getEmail();//get the reclamation owner's mail
+        mailService.sendEmail(motif.getMotif(),MailReceiver);
+
+        respose.put("response",200);
+        respose.put("Receiver" , mailReceiver);
+        respose.put("motif",motif.getMotif());
+        return respose;
+    }
+
 
 }

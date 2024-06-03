@@ -1,27 +1,28 @@
 package com.example.projetmobile;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
+import org.json.JSONObject;
+
 import java.util.List;
-import java.util.Map;
 
 public class DemandeAdminAdapter extends RecyclerView.Adapter<DemandeAdminAdapter.ViewHolder> {
     private Context contexte;
@@ -47,96 +48,43 @@ public class DemandeAdminAdapter extends RecyclerView.Adapter<DemandeAdminAdapte
         holder.dateTextView.setText(demande.getDate());
         holder.etatTextView.setText(demande.getEtat());
 
-        holder.btnAccept.setOnClickListener(v -> {
-            // Récupération du token stocké dans les SharedPreferences
-            SharedPreferences sharedPref = contexte.getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
-            String token = sharedPref.getString("token", "");
+        holder.btnTraiter.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(contexte);
+            builder.setTitle("Entrez le motif");
 
-            // ID de la demande
-            long idDemande = demandeListe.get(holder.getAdapterPosition()).getIdDemande(); // Assurez-vous que cette méthode existe et renvoie l'ID correct
+            final EditText input = new EditText(contexte);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            input.setLayoutParams(lp);
+            builder.setView(input);
 
-            // Préparation de l'URL de l'API avec l'ID de la demande comme paramètre de requête
-            String url = "http://10.0.2.2:9090/reclamation/solve?id=" + idDemande;
+            builder.setPositiveButton("Accepter", (dialog, which) -> {
+                String motif = input.getText().toString();
+                String remerciementClient1 = "Nous vous remercions d'avoir soumis cette demande. Nous l'avons acceptée.";
+                envoyerRequete("newSolve", position, "Motif: " + motif + "\n" +
+                        "\n" +
+                        "Remerciement du client: " + remerciementClient1);
 
-            // Création de la requête
-            StringRequest solveRequest = new StringRequest(Request.Method.POST, url,
-                    response -> {
-                        // La demande a été acceptée avec succès
-                        Toast.makeText(contexte, "Demande acceptée", Toast.LENGTH_SHORT).show();
-                        // Mettez à jour votre UI ici
-                    },
-                    error -> {
-                        // Gérer l'erreur
-                        Toast.makeText(contexte, "Erreur lors de l'acceptation de la demande", Toast.LENGTH_SHORT).show();
-                    }) {
-                @Override
-                public byte[] getBody() {
-                    return token.getBytes(StandardCharsets.UTF_8);
-                }
 
-                @Override
-                public String getBodyContentType() {
-                    // Assurez-vous que le serveur accepte ce type de contenu pour le token
-                    return "text/plain; charset=utf-8";
-                }
-            };
 
-            // Ajout de la requête à la file d'attente de Volley
-            RequestQueue queue = Volley.newRequestQueue(contexte);
-            queue.add(solveRequest);
+            });
+
+            builder.setNegativeButton("Refuser", (dialog, which) -> {
+                String motif = input.getText().toString();
+                String remerciementClient2 = "Nous vous remercions d'avoir soumis cette demande. Nous l'avons examinée et nous avons décidé de la refuser.";
+
+                envoyerRequete("newReject", position, "Motif: " + motif + "\n" +
+                        "\n" +
+                        "Remerciement du client: " + remerciementClient2);
+
+            });
+
+
+
+
+            builder.show();
         });
-
-
-
-
-        holder.btnRefuse.setOnClickListener(v -> {
-            // Récupération du token stocké dans les SharedPreferences
-            SharedPreferences sharedPref = contexte.getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
-            String token = sharedPref.getString("token", "");
-
-            // ID de la demande
-            long idDemande = demandeListe.get(holder.getAdapterPosition()).getIdDemande(); // Assurez-vous que cette méthode existe et renvoie l'ID correct
-
-            // Préparation de l'URL de l'API avec l'ID de la demande comme paramètre de requête
-            String url = "http://10.0.2.2:9090/reclamation/reject?id=" + idDemande;
-
-            // Création de la requête pour rejeter la demande
-            StringRequest rejectRequest = new StringRequest(Request.Method.POST, url,
-                    response -> {
-                        // La demande a été rejetée avec succès, notifier l'utilisateur
-                        Toast.makeText(contexte, "Demande rejetée", Toast.LENGTH_SHORT).show();
-
-                        // Mettez à jour votre liste locale ou notifiez l'adapter du changement
-                        demandeListe.get(holder.getAdapterPosition()).setEtat("Rejected");
-                        notifyItemChanged(holder.getAdapterPosition());
-                    },
-                    error -> {
-                        // Gérer l'erreur
-                        Toast.makeText(contexte, "Erreur lors du rejet de la demande", Toast.LENGTH_SHORT).show();
-                    }) {
-                @Override
-                public byte[] getBody() {
-                    return token.getBytes(StandardCharsets.UTF_8);
-                }
-
-                @Override
-                public String getBodyContentType() {
-                    return "text/plain; charset=utf-8";
-                }
-
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("id", String.valueOf(idDemande));
-                    return params;
-                }
-            };
-
-            // Ajout de la requête à la file d'attente de Volley
-            RequestQueue queue = Volley.newRequestQueue(contexte);
-            queue.add(rejectRequest);
-        });
-
     }
 
     @Override
@@ -144,9 +92,54 @@ public class DemandeAdminAdapter extends RecyclerView.Adapter<DemandeAdminAdapte
         return demandeListe.size();
     }
 
+    // Déclarez un indicateur d'état pour suivre si une requête est en cours d'envoi
+    private boolean envoiRequeteEnCours = false;
+
+    private void envoyerRequete(String endpoint, int position, String motif) {
+        // Vérifiez si une requête est déjà en cours d'envoi
+        if (envoiRequeteEnCours) {
+            // Si oui, ne faites rien et quittez la méthode
+            return;
+        }
+
+        SharedPreferences sharedPref = contexte.getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        String token = sharedPref.getString("token", "");
+        long idDemande = demandeListe.get(position).getIdDemande();
+
+        try {
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("motif", motif);
+
+            envoiRequeteEnCours = true; // Définissez l'indicateur d'état comme true pour indiquer que l'envoi de requête est en cours
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                    "http://10.0.2.2:9090/reclamation/" + endpoint + "?token=" + token + "&id=" + idDemande,
+                    jsonBody,
+                    response -> {
+                        envoiRequeteEnCours = false; // Réinitialisez l'indicateur d'état une fois la requête terminée
+                        String etat = endpoint.equals("newSolve") ? "Solved" : "Rejected";
+                        Toast.makeText(contexte, "Demande " + etat.toLowerCase(), Toast.LENGTH_SHORT).show();
+                        demandeListe.get(position).setEtat(etat);
+                        notifyItemChanged(position);
+                    },
+                    error -> {
+                        envoiRequeteEnCours = false; // Réinitialisez l'indicateur d'état en cas d'erreur lors de la requête
+                        Toast.makeText(contexte, "Erreur lors de la requête", Toast.LENGTH_SHORT).show();
+                    }
+            );
+
+            RequestQueue queue = Volley.newRequestQueue(contexte);
+            queue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            envoiRequeteEnCours = false; // Réinitialisez l'indicateur d'état en cas d'exception
+            Toast.makeText(contexte, "Erreur: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView, sujetTextView, dateTextView, etatTextView;
-        Button btnAccept, btnRefuse;
+        Button btnTraiter;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -154,8 +147,7 @@ public class DemandeAdminAdapter extends RecyclerView.Adapter<DemandeAdminAdapte
             sujetTextView = itemView.findViewById(R.id.sujetTextView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
             etatTextView = itemView.findViewById(R.id.etatTextView);
-            btnAccept = itemView.findViewById(R.id.btnAccept);
-            btnRefuse = itemView.findViewById(R.id.btnRefuse);
+            btnTraiter = itemView.findViewById(R.id.btnTraiter);
         }
     }
 }

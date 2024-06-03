@@ -130,19 +130,11 @@
             android:layout_below="@id/demandInfoContainer">
 
             <Button
-                android:id="@+id/btnAccept"
+                android:id="@+id/btnTraiter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Accepter"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/vert" />
-
-            <Button
-                android:id="@+id/btnRefuse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Refuser"
-                android:backgroundTint="@color/red" />
+                android:layout_marginTop="1dp"
+                android:text="Traiter" />
 
         </LinearLayout>
 

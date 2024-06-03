@@ -1,6 +1,9 @@
 package com.example.projetmobile;
 
+import kotlin.jvm.internal.SerializedIr;
+
 public class Demande {
+
     private long idDemande;
     private String title;
     private String sujet;
